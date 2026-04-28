@@ -1,0 +1,13 @@
+## create environment
+# cmd
+# conda create -n env python==3.10.8
+# conda activate env
+# pip install Django==5.2.7 scikit-learn==1.7.2 pandas==2.3.3 tensorflow==2.20.0 numpy==2.2.6
+# python manage.py runserver
+
+
+## in existing environment
+# cmd
+# conda activate env
+# python manage.py runserver
+

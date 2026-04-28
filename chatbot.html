@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart Career Advisor - AI Career Counselor</title>
+   
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon" />
+   
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+       
+        .chatbot-container {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-height: 80vh;
+        }
+       
+        .header-title {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+       
+        .header-title h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+       
+        .header-title p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+       
+        .selection-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+       
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: block;
+        }
+       
+        .form-select {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 1rem;
+            color: #34495e;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+       
+        .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            outline: none;
+        }
+       
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 1px solid #e0e0e0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+       
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0;
+            margin: -25px -25px 20px -25px;
+        }
+       
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 400px;
+            padding-right: 10px;
+        }
+       
+        .message {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+       
+        .ai-message {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+        }
+       
+        .user-message {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            margin-left: 20px;
+        }
+       
+        .message-header {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+       
+        .message-content {
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+       
+        .message-content ul, .message-content ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+       
+        .message-content li {
+            margin-bottom: 5px;
+        }
+       
+        .message-content a {
+            color: #667eea;
+            text-decoration: none;
+        }
+       
+        .message-content a:hover {
+            text-decoration: underline;
+        }
+       
+        .typing-indicator {
+            display: none;
+            padding: 15px;
+            background: #f0f4ff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+       
+        .typing-dots {
+            display: flex;
+            gap: 5px;
+        }
+       
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+       
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+       
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+       
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+       
+        .question-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+       
+        .question-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            color: #2c3e50;
+        }
+       
+        .question-btn:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+       
+        .question-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+       
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+       
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+       
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+       
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+       
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+       
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+       
+        .back-to-results {
+            text-align: center;
+            margin-top: 20px;
+        }
+       
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+       
+        .back-link:hover {
+            text-decoration: underline;
+        }
+       
+        @media (max-width: 768px) {
+            .chatbot-container {
+                padding: 20px;
+                margin: 20px;
+            }
+           
+            .question-buttons {
+                grid-template-columns: 1fr;
+            }
+           
+            .header-title h1 {
+                font-size: 2rem;
+            }
+        }
+       
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+       
+        .skill-tag {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+       
+        .platform-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+       
+        .platform-name {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        /* New styles for chat input */
+        .chat-input {
+            display: flex;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        #userInput {
+            flex-grow: 1;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
+            resize: none;
+            height: 50px;
+            font-size: 1rem;
+            color: #34495e;
+            transition: all 0.3s ease;
+        }
+
+        #userInput:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            outline: none;
+        }
+
+        #sendButton {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #sendButton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- LOADER -->
+    <div id="preloader" style="display: none;">
+        <div class="loader-container">
+            <div class="progress-br float shadow">
+                <div class="progress__item"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="chatbot-container">
+                    <!-- Header -->
+                    <div class="header-title">
+                        <h1><i class="fas fa-robot"></i> AI Career Counselor</h1>
+                        <p>Get detailed guidance about your recommended career paths</p>
+                    </div>
+                   
+                    <!-- Selection Section -->
+                    <div class="selection-card">
+                        <h3><i class="fas fa-list-check"></i> Select Your Career Path</h3>
+                        <p class="text-muted">Choose one of your predicted job roles to get detailed career guidance</p>
+                       
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label">
+                                    <i class="fas fa-briefcase"></i> Select Job Role:
+                                </label>
+                                <select class="form-select" id="jobSelect">
+                                    <option value="">Choose a job role...</option>
+                                    {% for prediction in top_3_predictions %}
+                                    <option value="{{ prediction.job_title }}">
+                                        {{ forloop.counter }}. {{ prediction.job_title }} ({{ prediction.probability|floatformat:2 }} match)
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                       
+                        <!-- Question Selection -->
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label class="form-label">
+                                    <i class="fas fa-question-circle"></i> Select Question Type:
+                                </label>
+                                <select class="form-select" id="questionSelect">
+                                    <option value="">Choose a question...</option>
+                                    <option value="1">1. Roadmap - Step-by-step learning path</option>
+                                    <option value="2">2. Skills Needed - Required technical & soft skills</option>
+                                    <option value="3">3. Learning Platforms - Where to learn these skills</option>
+                                    <option value="4">4. Why Recommended - Why this job matches your profile</option>
+                                    <option value="5">5. Salary Expectations - Expected salary ranges</option>
+                                    <option value="6">6. Certifications - Important certifications to get</option>
+                                    <option value="7">7. Job Responsibilities - Day-to-day tasks</option>
+                                    <option value="8">8. Growth Opportunities - Career progression path</option>
+                                    <option value="9">9. Interview Preparation - How to prepare for interviews</option>
+                                    <option value="10">10. Industry Trends - Current market trends</option>
+                                </select>
+                            </div>
+                        </div>
+                       
+                       
+                        <div class="action-buttons">
+                            <button class="btn-primary" id="askButton">
+                                <i class="fas fa-paper-plane"></i> Ask AI Counselor
+                            </button>
+                            <button class="btn-secondary" id="clearButton">
+                                <i class="fas fa-eraser"></i> Clear Chat
+                            </button>
+                        </div>
+                    </div>
+                   
+                    <!-- Chat Container -->
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <h4 class="mb-0"><i class="fas fa-comments"></i> AI Career Counselor</h4>
+                        </div>
+                       
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Initial welcome message -->
+                            <div class="message ai-message">
+                                <div class="message-header">
+                                    <i class="fas fa-robot"></i> AI Career Counselor
+                                </div>
+                                <div class="message-content">
+                                    <p>👋 Hello! I'm your AI Career Counselor.</p>
+                                    <p>Select one of your predicted job roles and choose a question to get detailed career guidance. You can also type your own question below!</p>
+                                    <p><strong>I can help you with:</strong></p>
+                                    <ul>
+                                        <li><strong>Roadmap:</strong> Step-by-step learning path</li>
+                                        <li><strong>Skills Needed:</strong> Technical & soft skills required</li>
+                                        <li><strong>Learning Platforms:</strong> Where to learn these skills</li>
+                                        <li><strong>Why Recommended:</strong> Why this job matches your skills</li>
+                                        <li><strong>And 6 more questions...</strong></li>
+                                    </ul>
+                                    <p><em>Start by selecting a job role from your predictions above!</em></p>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <!-- Typing Indicator -->
+                        <div class="typing-indicator" id="typingIndicator">
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <p class="mt-2 text-muted">AI is analyzing your question...</p>
+                        </div>
+
+                        <!-- Chat Input for Custom Questions -->
+                        <div class="chat-input">
+                            <textarea id="userInput" placeholder="Type your question here..."></textarea>
+                            <button id="sendButton"><i class="fas fa-paper-plane"></i> Send</button>
+                        </div>
+                    </div>
+                   
+                    <!-- Back to Results -->
+                    <div class="back-to-results">
+                        <a href="{% url 'result' %}" class="back-link">
+                            <i class="fas fa-arrow-left"></i> Back to Career Predictions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let currentJob = '';
+            let currentQuestion = '';
+           
+            // Quick question buttons click handler
+            $('.question-btn').click(function() {
+                $('.question-btn').removeClass('active');
+                $(this).addClass('active');
+                $('#questionSelect').val($(this).data('question'));
+                currentQuestion = $(this).data('question');
+            });
+           
+            // Ask button click handler (for selected questions)
+            $('#askButton').click(function() {
+                currentJob = $('#jobSelect').val();
+                currentQuestion = $('#questionSelect').val();
+               
+                if (!currentJob) {
+                    alert('Please select a job role first.');
+                    return;
+                }
+               
+                if (!currentQuestion) {
+                    alert('Please select a question type.');
+                    return;
+                }
+               
+                askGemini(currentJob, currentQuestion);
+            });
+           
+            // Send button click handler (for typed questions)
+            $('#sendButton').click(function() {
+                currentJob = $('#jobSelect').val();
+                const typedQuestion = $('#userInput').val().trim();
+               
+                if (!currentJob) {
+                    alert('Please select a job role first.');
+                    return;
+                }
+               
+                if (!typedQuestion) {
+                    alert('Please type a question.');
+                    return;
+                }
+               
+                askGemini(currentJob, typedQuestion);
+                $('#userInput').val(''); // Clear input after sending
+            });
+
+            // Allow pressing Enter to send typed question
+            $('#userInput').keypress(function(e) {
+                if (e.which == 13 && !e.shiftKey) {
+                    e.preventDefault();
+                    $('#sendButton').click();
+                }
+            });
+           
+            // Clear chat button
+            $('#clearButton').click(function() {
+                $('#chatMessages').html(`
+                    <div class="message ai-message">
+                        <div class="message-header">
+                            <i class="fas fa-robot"></i> AI Career Counselor
+                        </div>
+                        <div class="message-content">
+                            <p>👋 Hello! I'm your AI Career Counselor.</p>
+                            <p>Select one of your predicted job roles and choose a question to get detailed career guidance. You can also type your own question below!</p>
+                            <p><strong>I can help you with:</strong></p>
+                            <ul>
+                                <li><strong>Roadmap:</strong> Step-by-step learning path</li>
+                                <li><strong>Skills Needed:</strong> Technical & soft skills required</li>
+                                <li><strong>Learning Platforms:</strong> Where to learn these skills</li>
+                                <li><strong>Why Recommended:</strong> Why this job matches your skills</li>
+                                <li><strong>And 6 more questions...</strong></li>
+                            </ul>
+                            <p><em>Start by selecting a job role from your predictions above!</em></p>
+                        </div>
+                    </div>
+                `);
+            });
+           
+            // Function to ask Gemini
+            function askGemini(job, question) {
+                // Show typing indicator
+                $('#typingIndicator').show();
+               
+                // Add user message to chat
+                const questionText = (typeof question === 'string' && question.length > 1) ? question : $('#questionSelect option:selected').text().split('. ')[1] || 'Custom question';
+                addMessage('user', `Question about ${job}: ${questionText}`);
+               
+                // Send request to server
+                $.ajax({
+                    url: '{% url "ask_gemini" %}',
+                    type: 'POST',
+                    data: {
+                        'selected_job': job,
+                        'selected_question': question,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        $('#typingIndicator').hide();
+                       
+                        if (response.error) {
+                            addMessage('ai', `Error: ${response.error}`);
+                            return;
+                        }
+                       
+                        // Add AI response to chat
+                        addMessage('ai', response.answer);
+                       
+                        // Scroll to bottom
+                        scrollToBottom();
+                    },
+                    error: function(xhr, status, error) {
+                        $('#typingIndicator').hide();
+                        addMessage('ai', 'Sorry, there was an error processing your request. Please try again.');
+                        console.error('Error:', error);
+                    }
+                });
+            }
+           
+            // Function to add message to chat
+            function addMessage(sender, content) {
+                const messageClass = sender === 'ai' ? 'ai-message' : 'user-message';
+                const icon = sender === 'ai' ? 'fas fa-robot' : 'fas fa-user';
+                const header = sender === 'ai' ? 'AI Career Counselor' : 'You';
+               
+                const messageHtml = `
+                    <div class="message ${messageClass}">
+                        <div class="message-header">
+                            <i class="${icon}"></i> ${header}
+                        </div>
+                        <div class="message-content">
+                            ${formatMessage(content)}
+                        </div>
+                    </div>
+                `;
+               
+                $('#chatMessages').append(messageHtml);
+                scrollToBottom();
+            }
+           
+            // Function to format message content (improved basic Markdown-like formatting)
+            function formatMessage(content) {
+                // Convert line breaks to <br>
+                content = content.replace(/\n/g, '<br>');
+               
+                // Convert **text** to <strong>text</strong>
+                content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+               
+                // Convert *text* to <em>text</em>
+                content = content.replace(/\*(.*?)\*/g, '<em>$1</em>');
+               
+                // Convert markdown links [text](url) to <a> tags
+                content = content.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+               
+                // Handle unordered lists (wrap consecutive - items in <ul>)
+                content = content.replace(/((<br>)?^- (.*?)(?=<br>|$))+/gm, function(match) {
+                    const items = match.replace(/<br>^- (.*?)(?=<br>|$)/gm, '<li>$1</li>');
+                    return '<ul>' + items + '</ul>';
+                });
+               
+                // Handle ordered lists (wrap consecutive \d+. items in <ol>)
+                content = content.replace(/((<br>)?^\d+\.\s+(.*?)(?=<br>|$))+/gm, function(match) {
+                    const items = match.replace(/<br>^\d+\.\s+(.*?)(?=<br>|$)/gm, '<li>$1</li>');
+                    return '<ol>' + items + '</ol>';
+                });
+               
+                return content;
+            }
+           
+            // Function to scroll to bottom of chat
+            function scrollToBottom() {
+                const chatMessages = $('#chatMessages')[0];
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+           
+            // Auto-select first job if available
+            {% if top_3_predictions %}
+                $('#jobSelect').val('{{ top_3_predictions.0.job_title }}');
+            {% endif %}
+           
+            // Question select change handler
+            $('#questionSelect').change(function() {
+                currentQuestion = $(this).val();
+                $('.question-btn').removeClass('active');
+                $('.question-btn[data-question="' + currentQuestion + '"]').addClass('active');
+            });
+           
+            // Job select change handler
+            $('#jobSelect').change(function() {
+                currentJob = $(this).val();
+            });
+        });
+    </script>
+</body>
+</html>

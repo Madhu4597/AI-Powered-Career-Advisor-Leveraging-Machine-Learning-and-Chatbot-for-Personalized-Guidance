@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+     <!-- Site Metas -->
+    <title>Smart Career Advisor - Results</title>  
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- ALL VERSION CSS -->
+    <link rel="stylesheet" href="/static/css/versions.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="/static/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <!-- Modernizer for Portfolio -->
+    <script src="/static/js/modernizer.js"></script>
+    <style>
+        body {
+            background-image: url(/static/images/bcg.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-attachment: fixed;
+        }
+        
+        .result-container {
+            padding: 50px 20px;
+            text-align: center;
+            min-height: 100vh;
+        }
+        
+        .result-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .result-item {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px 10px 0 0;
+            height: 200px;
+            margin: -1px -1px 0 -1px;
+        }
+        
+        .result-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        .result-item img:hover {
+            transform: scale(1.05);
+        }
+        
+        .card-body {
+            padding: 25px;
+            background: white;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+        }
+        
+        .probability-badge {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 600;
+            margin: 15px 0;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+        
+        .rank-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 16px;
+            z-index: 1;
+        }
+        
+        .rank-1 { background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; }
+        .rank-2 { background: linear-gradient(45deg, #C0C0C0, #A9A9A9); }
+        .rank-3 { background: linear-gradient(45deg, #CD7F32, #8B4513); }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .lead {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        
+        .back-button {
+            margin-top: 30px;
+            padding: 12px 35px;
+            font-size: 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border: none;
+        }
+        
+        .btn-outline-secondary {
+            border: 2px solid #6c757d;
+            color: #6c757d;
+            background: transparent;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+        }
+        
+        .btn-outline-secondary:hover {
+            background: #6c757d;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .chatbot-btn {
+            background: linear-gradient(45deg, #9C27B0, #673AB7);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            font-size: 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .chatbot-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+            color: white;
+            background: linear-gradient(45deg, #8E24AA, #5E35B1);
+        }
+        
+        .alert-custom {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .col-md-4 {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        
+        .row.justify-content-center {
+            margin-left: -5px;
+            margin-right: -5px;
+        }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="host_version"> 
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="progress-br float shadow">
+                <div class="progress__item"></div>
+            </div>
+        </div>
+    </div>
+    <!-- END LOADER -->    
+    
+    <!-- Start header -->
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img src="/static/images/logo_1.1.png" alt="Smart Career Advisor" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbars-host">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'view' %}">View</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'model' %}">Model</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'predict' %}">Prediction</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="hover-btn-new log orange" href="{% url 'custom_logout' %}"><span>Logout</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End header -->
+
+    <!-- Results Section -->
+    <div class="container result-container">
+        <div class="result-card">
+            <h1 class="mb-4">🎯 Top 3 Career Predictions</h1>
+            <p class="lead mb-5">Based on your skills and interests, here are the most suitable career paths for you:</p>
+            
+            <div class="row justify-content-center">
+                {% for prediction in top_3_predictions %}
+                    <div class="col-md-4 col-sm-6 result-item">
+                        <div class="card h-100">
+                            <!-- Image Container with Rank Badge -->
+                            <div class="card-img-wrapper">
+                                <div class="rank-badge rank-{{ forloop.counter }}">
+                                    {% if forloop.counter == 1 %}
+                                        🥇
+                                    {% elif forloop.counter == 2 %}
+                                        🥈
+                                    {% else %}
+                                        🥉
+                                    {% endif %}
+                                </div>
+                                <img src="{{ prediction.image }}" class="card-img-top" alt="{{ prediction.job_title }}">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ prediction.job_title }}</h4>
+                                <div class="probability-badge">
+                                    Match: {{ prediction.probability }}%
+                                </div>
+                                <p class="card-text mt-3">
+                                    {% if forloop.counter == 1 %}
+                                        <strong>🎖️ Best Match!</strong><br>
+                                        This career aligns perfectly with your skill set.
+                                    {% elif forloop.counter == 2 %}
+                                        <strong>🥈 Excellent Alternative</strong><br>
+                                        Strong match with good growth potential.
+                                    {% else %}
+                                        <strong>🥉 Good Option</strong><br>
+                                        Compatible career path worth considering.
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Additional Information -->
+            <div class="mt-5">
+                <h3>📊 Prediction Details</h3>
+                <p>The predictions are based on your self-assessment in various technical and professional skills. 
+                The probabilities indicate how well each career matches your profile.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="alert alert-info alert-custom">
+                            <h5>🏆 Top Match</h5>
+                            <p class="mb-0">Highest probability career that matches your skills perfectly.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="alert alert-warning alert-custom">
+                            <h5>📈 Growth Potential</h5>
+                            <p class="mb-0">Consider market trends and future opportunities in these fields.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="alert alert-success alert-custom">
+                            <h5>🎯 Skill Development</h5>
+                            <p class="mb-0">Focus on improving key skills for your chosen career path.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="mt-5">
+                <a href="{% url 'predict' %}" class="btn btn-primary btn-lg back-button">
+                    🔄 Try Another Prediction
+                </a>
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-lg back-button ms-3">
+                    🏠 Return to Home
+                </a>
+                <!-- Chatbot Button -->
+                <a href="{% url 'chatbot' %}" class="chatbot-btn ms-3">
+                    🤖 AI Career Counselor
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+
+    <!-- ALL JS FILES -->
+    <script src="/static/js/all.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="/static/js/custom.js"></script>
+    <script src="/static/js/timeline.min.js"></script>
+    <script>
+        timeline(document.querySelectorAll('.timeline'), {
+            forceVerticalMode: 700,
+            mode: 'horizontal',
+            verticalStartPosition: 'left',
+            visibleItems: 4
+        });
+        
+        // Smooth scroll to top
+        document.getElementById('scroll-to-top').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+        
+        // Add animation to cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

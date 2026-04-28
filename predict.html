@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+     <!-- Site Metas -->
+    <title>Smart Career Advisor - Prediction</title>  
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- ALL VERSION CSS -->
+    <link rel="stylesheet" href="/static/css/versions.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="/static/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <!-- Modernizer for Portfolio -->
+    <script src="/static/js/modernizer.js"></script>
+    <style>
+        body {
+            background-image: url(/static/images/bcg.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .prediction-container {
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .form-card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .section-title h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .section-title h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            border-radius: 2px;
+        }
+        
+        .lead-text {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        
+        .skill-category {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .category-title {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-title i {
+            color: #3498db;
+            font-size: 1.6rem;
+        }
+        
+        .skill-select {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 1rem;
+            color: #34495e;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            width: 100%;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233498db' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+        }
+        
+        .skill-select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+            outline: none;
+        }
+        
+        .skill-select option {
+            padding: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .skill-select option[value=""] {
+            color: #95a5a6;
+            font-style: italic;
+        }
+        
+        .skill-level-info {
+            background: #e8f4fc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .skill-level-title {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .level-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .level-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .level-value {
+            font-weight: 700;
+            color: #3498db;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .level-label {
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            border: none;
+            color: white;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 40px auto 20px;
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, #2980b9 0%, #27ae60 100%);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .form-section {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .skill-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .result-message {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .form-card {
+                padding: 25px;
+            }
+            
+            .section-title h1 {
+                font-size: 2rem;
+            }
+            
+            .skill-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .level-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="host_version"> 
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="progress-br float shadow">
+                <div class="progress__item"></div>
+            </div>
+        </div>
+    </div>
+    <!-- END LOADER -->    
+    
+    <!-- Start header -->
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img src="/static/images/logo_1.1.png" alt="Smart Career Advisor" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbars-host">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'view' %}">View</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'model' %}">Model</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'predict' %}">Prediction</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="hover-btn-new log orange" href="{% url 'custom_logout' %}"><span>Logout</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End header -->
+
+    <!-- Prediction Form Section -->
+    <div class="container prediction-container">
+        <div class="form-card">
+            <!-- Header -->
+            <div class="section-title">
+                <h1>🎯 Career Prediction</h1>
+            </div>
+            
+            <p class="lead-text">Assess your skills in each area to discover the most suitable career paths. Be honest about your proficiency level for accurate results.</p>
+            
+            <!-- Skill Level Guide -->
+            <div class="skill-level-info">
+                <div class="skill-level-title">
+                    📊 Skill Level Guide
+                </div>
+                <p style="margin-bottom: 15px; color: #2c3e50;">Select your proficiency level for each skill area:</p>
+                <div class="level-grid">
+                    <div class="level-item">
+                        <div class="level-value">0 - Not Interested</div>
+                        <div class="level-label">No interest in this area</div>
+                    </div>
+                    <div class="level-item">
+                        <div class="level-value">1 - Poor</div>
+                        <div class="level-label">Very basic understanding</div>
+                    </div>
+                    <div class="level-item">
+                        <div class="level-value">2 - Beginner</div>
+                        <div class="level-label">Basic knowledge, still learning</div>
+                    </div>
+                    <div class="level-item">
+                        <div class="level-value">3 - Average</div>
+                        <div class="level-label">Working knowledge</div>
+                    </div>
+                    <div class="level-item">
+                        <div class="level-value">4 - Intermediate</div>
+                        <div class="level-label">Comfortable with concepts</div>
+                    </div>
+                    <div class="level-item">
+                        <div class="level-value">5 - Excellent</div>
+                        <div class="level-label">Strong skills</div>
+                    </div>
+                    <div class="level-item">
+                        <div class="level-value">6 - Professional</div>
+                        <div class="level-label">Expert level</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Result Message -->
+            {% if msg %}
+            <div class="result-message">
+                <h3 style="margin-bottom: 10px;">🎉 Prediction Ready!</h3>
+                <p style="font-size: 1.1rem; margin: 0;">Scroll down to see your career recommendations below.</p>
+            </div>
+            {% endif %}
+            
+            <!-- Prediction Form -->
+            <form action="{% url 'predict' %}" method="POST" id="predictionForm">
+                {% csrf_token %}
+                
+                <div class="form-section">
+                    <!-- Technical Skills -->
+                    <div class="skill-category">
+                        <div class="category-title">
+                            💻 Technical Skills
+                        </div>
+                        <div class="skill-row">
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Database Fundamentals</label>
+                                <select class="skill-select" name="database_fundamentals" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Computer Architecture</label>
+                                <select class="skill-select" name="computer_architecture" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Distributed Computing</label>
+                                <select class="skill-select" name="distributed_computing_systems" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Cyber Security</label>
+                                <select class="skill-select" name="cyber_security" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Networking</label>
+                                <select class="skill-select" name="networking" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Software Development</label>
+                                <select class="skill-select" name="software_development" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Programming Skills</label>
+                                <select class="skill-select" name="Programming_skills" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Professional Skills -->
+                    <div class="skill-category">
+                        <div class="category-title">
+                            👔 Professional Skills
+                        </div>
+                        <div class="skill-row">
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Project Management</label>
+                                <select class="skill-select" name="project_management" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Computer Forensics</label>
+                                <select class="skill-select" name="computer_forensics" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Technical Communication</label>
+                                <select class="skill-select" name="technical_communication" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">AI/ML</label>
+                                <select class="skill-select" name="ai_ml" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Software Engineering</label>
+                                <select class="skill-select" name="software_engineering" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Business Analysis</label>
+                                <select class="skill-select" name="business_analysis" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Communication Skills</label>
+                                <select class="skill-select" name="communication_skills" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Data Science</label>
+                                <select class="skill-select" name="data_science" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Troubleshooting Skills</label>
+                                <select class="skill-select" name="troubleshooting_skills" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 500;">Graphics Designing</label>
+                                <select class="skill-select" name="graphics_desgining" required>
+                                    <option value="">Select your level</option>
+                                    <option value="0">0 - Not Interested</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Beginner</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="4">4 - Intermediate</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="6">6 - Professional</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading Spinner -->
+                    <div class="loading-spinner" id="loadingSpinner">
+                        <div class="spinner"></div>
+                        <p style="margin-top: 10px; color: #3498db;">Analyzing your skills and predicting career paths...</p>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn" onclick="showLoading()">
+                        🚀 Get Career Prediction
+                    </button>
+                    
+                    <p style="text-align: center; color: #7f8c8d; font-size: 0.9rem; margin-top: 20px;">
+                        Your responses will be analyzed using advanced machine learning algorithms to provide accurate career recommendations.
+                    </p>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Results Section (Only shown after form submission) -->
+        {% if top_3_predictions %}
+        <div class="form-card" style="margin-top: 30px; animation: fadeIn 0.8s ease;">
+            <div class="section-title">
+                <h1>📋 Your Career Recommendations</h1>
+            </div>
+            
+            <p class="lead-text">Based on your skill assessment, here are the top 3 career paths that match your profile:</p>
+            
+            <div class="row" style="margin-top: 40px;">
+                {% for prediction in top_3_predictions %}
+                <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom: 30px;">
+                    <div class="skill-category" style="height: 100%; padding: 20px;">
+                        <div class="rank-badge rank-{{ forloop.counter }}" style="position: relative; top: 0; left: 0; margin-bottom: 15px; display: inline-block;">
+                            {% if forloop.counter == 1 %}🥇{% elif forloop.counter == 2 %}🥈{% else %}🥉{% endif %}
+                        </div>
+                        <h4 style="color: #2c3e50; margin-bottom: 15px;">{{ prediction.job_title }}</h4>
+                        
+                        <div class="probability-badge" style="background: linear-gradient(45deg, #28a745, #20c997); padding: 8px 20px; border-radius: 20px; color: white; font-weight: 600; margin-bottom: 15px; display: inline-block;">
+                            Match Score: {{ prediction.probability|floatformat:2 }}
+                        </div>
+                        
+                        <p style="color: #34495e; line-height: 1.6; margin-bottom: 15px;">
+                            {% if forloop.counter == 1 %}
+                                <strong>🎖️ Perfect Match!</strong><br>
+                                Your skills align exceptionally well with this career path. This is your strongest match based on the assessment.
+                            {% elif forloop.counter == 2 %}
+                                <strong>🌟 Excellent Alternative</strong><br>
+                                Strong compatibility with great growth potential and opportunities in the current market.
+                            {% else %}
+                                <strong>💡 Good Option</strong><br>
+                                A compatible career path that matches many of your skills and offers good opportunities.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="action-buttons" style="text-align: center; margin-top: 40px;">
+                <a href="{% url 'predict' %}" class="submit-btn" style="display: inline-block; margin: 0 10px;">
+                    🔄 Try Another Prediction
+                </a>
+                <a href="{% url 'home' %}" class="submit-btn" style="display: inline-block; margin: 0 10px; background: linear-gradient(135deg, #6c757d 0%, #495057 100%);">
+                    🏠 Return to Home
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+
+    <!-- ALL JS FILES -->
+    <script src="/static/js/all.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="/static/js/custom.js"></script>
+    <script src="/static/js/timeline.min.js"></script>
+    <script>
+        // Show loading spinner on form submit
+        function showLoading() {
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('predictionForm').submit();
+        }
+        
+        // Form validation
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            const selects = document.querySelectorAll('.skill-select');
+            let isValid = true;
+            
+            selects.forEach(select => {
+                if (!select.value) {
+                    select.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    select.style.borderColor = '#e0e0e0';
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('Please select a skill level for all fields before submitting.');
+                return false;
+            }
+        });
+        
+        // Reset border color on select change
+        document.querySelectorAll('.skill-select').forEach(select => {
+            select.addEventListener('change', function() {
+                if (this.value) {
+                    this.style.borderColor = '#e0e0e0';
+                }
+            });
+        });
+        
+        timeline(document.querySelectorAll('.timeline'), {
+            forceVerticalMode: 700,
+            mode: 'horizontal',
+            verticalStartPosition: 'left',
+            visibleItems: 4
+        });
+        
+        // Smooth scroll to top
+        document.getElementById('scroll-to-top').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+        
+        // Auto-scroll to results if they exist
+        document.addEventListener('DOMContentLoaded', function() {
+            {% if top_3_predictions %}
+                setTimeout(function() {
+                    const resultsSection = document.querySelector('.form-card:nth-child(3)');
+                    if (resultsSection) {
+                        resultsSection.scrollIntoView({behavior: 'smooth'});
+                    }
+                }, 500);
+            {% endif %}
+        });
+    </script>
+</body>
+</html>
