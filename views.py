@@ -18,7 +18,7 @@ import os
 
 # Configure Gemini API (add your API key in settings or environment variable)
 # You can get API key from: https://makersuite.google.com/app/apikey
-GEMINI_API_KEY = "AIzaSyDc-tVHVQfM6WUfhBRVkTYfAAVuf-GxWJg"  # Or set in settings.py
+GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Create your views here.
